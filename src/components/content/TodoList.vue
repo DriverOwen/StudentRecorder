@@ -16,16 +16,15 @@
         </div>
       </div>
     </div>
-    <ul class="todoList-ul" v-for="(item,index) in listTodo" :key="index">
-      <li class="todoList-item" :class="{isComplete:item.isComplete}">
-        <el-checkbox class="item-content" v-model="item.isComplete">
-          <p class="item-title">{{item.title}}</p>
-          <p class="item-date">{{item.date}}</p>
-        </el-checkbox>
-        <el-button type="danger" icon="el-icon-delete" @click="delTodo(item)" circle size="mini" ></el-button>
-      </li>
-
-    </ul>
+      <ul class="todoList-ul" >
+        <li class="todoList-item" v-for="(item,index) in listTodo" :key="index" :class="{isComplete:item.isComplete}">
+          <el-checkbox class="item-content" v-model="item.isComplete">
+            <p class="item-title">{{item.title}}</p>
+            <p class="item-date">{{item.date}}</p>
+          </el-checkbox>
+          <el-button type="danger" icon="el-icon-delete" @click="delTodo(item)" circle size="mini" ></el-button>
+        </li>
+      </ul>
     <ul class="todoList-ul" v-show="!GET_ALL_TODO.length">
       <li class="todoList-item noTodo" >
         还未添加任务
@@ -43,7 +42,8 @@
       return {
         unCompleteCount: 0,
         nowIndex: 0,
-        listTodo: []
+        listTodo: [],
+        isShow: false
       }
     },
     computed: {
@@ -57,6 +57,7 @@
       getAllTodo(index){
         this.nowIndex = index
         this.listTodo = this.GET_ALL_TODO
+
       },
       getUnCompleteTodo(index){
         this.nowIndex = index
@@ -69,7 +70,10 @@
     },
     mounted(){
       this.listTodo = this.GET_ALL_TODO
-      console.log(this.GET_ALL_TODO.length);
+
+      if(this.GET_ALL_TODO.length>0){
+
+      }
     },
     updated() {
       // console.log(this.GET_ALL_TODO.length)
