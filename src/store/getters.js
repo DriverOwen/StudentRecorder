@@ -10,6 +10,10 @@ export default {
   },
   // 获取未完成的任务
   [GET_UNCOMPLETED_TODO](state){
-    return state.todoList.filter(todo => todo.isComplete != true)
+    return state.todoList.filter(todo => todo.isComplete !== true)
+  },
+  // 获取完成的任务
+  [GET_COMPLETED_TODO](state){
+    return state.todoList.filter(todo => todo.isComplete === true)
   }
 }

@@ -41,16 +41,16 @@
   >>> .todoListInp input {
     outline: none;
     border: none;
-    border-bottom: 2px solid #ededed;
+    border-bottom: 2px solid #fff;
     border-radius: 0;
     background: transparent;
-    color: #000;
+    color: #606266;
     font-weight: bold;
     letter-spacing: 2px;
     text-align: center;
   }
   >>> .todoListInp input::placeholder {
-    color: #ccc;
+    color: ##06266;
   }
 
   >>> .el-input .el-input__clear{

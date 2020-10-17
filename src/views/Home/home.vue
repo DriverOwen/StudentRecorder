@@ -47,7 +47,7 @@
 
 <style scoped>
   .el-header, .el-footer {
-    background-color: #fafafa;
+    background-color: #E9EEF3;
     color: #333;
     text-align: center;
     line-height: 60px;

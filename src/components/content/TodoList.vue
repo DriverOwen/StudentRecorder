@@ -5,18 +5,18 @@
        {{GET_UNCOMPLETED_TODO.length}} 个任务没有完成
       </div>
       <div class="todoSort" v-show="GET_ALL_TODO.length">
-        <div class="sort-item">
+        <div class="sort-item" :class="{active: nowIndex === 0}" @click="getAllTodo(0)">
           所有任务
         </div>
-        <div class="sort-item">
+        <div class="sort-item" :class="{active: nowIndex === 1}" @click="getUnCompleteTodo(1)" >
           未完成的任务
         </div>
-        <div class="sort-item">
+        <div class="sort-item" :class="{active: nowIndex === 2}" @click="getCompleteTodo(2)">
           完成的任务
         </div>
       </div>
     </div>
-    <ul class="todoList-ul" v-for="(item,index) in GET_ALL_TODO" :key="index">
+    <ul class="todoList-ul" v-for="(item,index) in listTodo" :key="index">
       <li class="todoList-item" :class="{isComplete:item.isComplete}">
         <el-checkbox class="item-content" v-model="item.isComplete">
           <p class="item-title">{{item.title}}</p>
@@ -41,20 +41,34 @@
     name: "TodoList",
     data(){
       return {
-        unCompleteCount: 0
+        unCompleteCount: 0,
+        nowIndex: 0,
+        listTodo: []
       }
     },
     computed: {
-      ...mapGetters(['GET_ALL_TODO','GET_UNCOMPLETED_TODO'])
-    }
-    ,
+      ...mapGetters(['GET_ALL_TODO','GET_UNCOMPLETED_TODO', 'GET_COMPLETED_TODO'])
+    },
     methods: {
       ...mapMutations(['DEL_TODO']),
       delTodo(todo){
         this.DEL_TODO(todo)
+      },
+      getAllTodo(index){
+        this.nowIndex = index
+        this.listTodo = this.GET_ALL_TODO
+      },
+      getUnCompleteTodo(index){
+        this.nowIndex = index
+        this.listTodo = this.GET_UNCOMPLETED_TODO
+      },
+      getCompleteTodo(index){
+        this.nowIndex = index
+        this.listTodo = this.GET_COMPLETED_TODO
       }
     },
     mounted(){
+      this.listTodo = this.GET_ALL_TODO
       console.log(this.GET_ALL_TODO.length);
     },
     updated() {
@@ -76,6 +90,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   }
   .item-content {
     display: flex;
@@ -121,15 +136,18 @@
     align-items: center;
   }
   .sort-item {
-
     padding: 2px;
     margin-right: 10px;
-    color: #fff;
-    background: #F56C6C;
+    color: #000;
+
     border-radius: 2px;
   }
   .noTodo {
     font-size: 14px;
     color: #999;
+  }
+  .active {
+    background: #F56C6C;
+    color: #fff;
   }
 </style>
