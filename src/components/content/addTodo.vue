@@ -1,15 +1,11 @@
 <template>
   <div class="addTodo-container">
-    <el-row>
-      <el-col :span="8" :offset="8">
-        <el-input clearable
-                  v-model="todoText"
-                  placeholder="输入内容 + 回车即可添加任务"
-                  class="todoListInp"
-                  @keyup.enter.native="addTodo"
-        ></el-input>
-      </el-col>
-    </el-row>
+    <el-input clearable
+              v-model="todoText"
+              placeholder="输入内容 + 回车即可添加任务"
+              class="todoListInp"
+              @keyup.enter.native="addTodo"
+    ></el-input>
   </div>
 </template>
 

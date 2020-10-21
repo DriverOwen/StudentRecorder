@@ -2,20 +2,27 @@
   <el-container>
     <el-aside width="70px">
       <left-nav-bar>
-
       </left-nav-bar>
     </el-aside>
     <el-container>
       <el-header>
-        <add-todo @addTodo="addTodo">
-
-        </add-todo>
+        <el-row>
+          <el-col :span="8">
+            <add-todo @addTodo="addTodo"></add-todo>
+          </el-col>
+        </el-row>
       </el-header>
       <el-main>
         <el-row>
-          <el-col :span="8" :offset="8">
+          <el-col :span="8">
             <todo-list></todo-list>
           </el-col>
+          <el-col :span="8" :offset="1">
+            <recorder-panel></recorder-panel>
+          </el-col>
+        </el-row>
+        <el-row>
+
         </el-row>
       </el-main>
     </el-container>
@@ -28,10 +35,11 @@
 
   import {setStore, getStore} from "@/utils/utils";
   import TodoList from "@/components/content/TodoList";
+  import RecorderPanel from "@/components/content/recorderPanel";
 
   export default {
     name: "Home",
-    components: {TodoList, AddTodo, LeftNavBar},
+    components: {RecorderPanel, TodoList, AddTodo, LeftNavBar},
     data(){
       return {
         todoList: []

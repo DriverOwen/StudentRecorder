@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-      <ul class="todoList-ul" >
+      <ul class="todoList-ul" v-show="GET_ALL_TODO.length">
         <li class="todoList-item" v-for="(item,index) in listTodo" :key="index" :class="{isComplete:item.isComplete}">
           <el-checkbox class="item-content" v-model="item.isComplete">
             <p class="item-title">{{item.title}}</p>
@@ -83,7 +83,10 @@
 
 <style scoped>
   .todoList-ul {
-
+    overflow-y: auto;
+    max-height: 500px;
+    min-height: 500px;
+    background: #f1f1f1;
   }
   .todoList-item {
     list-style: none;
@@ -94,7 +97,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px;
-    box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
   }
   .item-content {
     display: flex;

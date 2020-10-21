@@ -11,7 +11,6 @@ export default {
   },
   // 删除todo
   [DEL_TODO](state, data){
-
     let index = state.todoList.indexOf(data);
     state.todoList.splice(index,1)
   }
