@@ -17,12 +17,9 @@
           <el-col :span="8">
             <todo-list></todo-list>
           </el-col>
-          <el-col :span="8" :offset="1">
+          <el-col :span="15" :offset="1">
             <recorder-panel></recorder-panel>
           </el-col>
-        </el-row>
-        <el-row>
-
         </el-row>
       </el-main>
     </el-container>
@@ -36,10 +33,11 @@
   import {setStore, getStore} from "@/utils/utils";
   import TodoList from "@/components/content/TodoList";
   import RecorderPanel from "@/components/content/recorderPanel";
+  import Echars from "@/components/content/echars";
 
   export default {
     name: "Home",
-    components: {RecorderPanel, TodoList, AddTodo, LeftNavBar},
+    components: {Echars, RecorderPanel, TodoList, AddTodo, LeftNavBar},
     data(){
       return {
         todoList: []

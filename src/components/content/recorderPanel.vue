@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="panel-head">
-      114次有效学习
+      {{countRecord}}次有效学习
     </div>
     <div class="recordPanel">
       <div class="left-side">
@@ -10,18 +10,20 @@
         <div class="box">周日</div>
       </div>
 
-        <div class="right-side">
+        <div class="right-side" @mouseenter="isShow=true" @mouseleave="isShow=false" ref="rightSide">
           <div class="box" :class="{
             less: allDays[index].record===0,
           little: allDays[index].record ===1,
-          some: allDays[index].record>2 && allDays[index].record <4,
-          many: allDays[index].record>4 && allDays[index].record <8,
+          some: allDays[index].record>=2 && allDays[index].record <=4,
+          many: allDays[index].record>4 && allDays[index].record <=8,
           much: allDays[index].record>8}"
                v-for="(item,index) in allDays.length"
-               @mouseover="showInfo($event)"
+               @mouseover="showInfo($event,index)"
           >
           </div>
-          <float-msg class="floatMsg" ref=""></float-msg>
+          <float-msg v-show="isShow" class="floatMsg" ref="floatMsg">
+            <span class="MsgText" slot="text">{{CurrentFloatMsg}}</span>
+          </float-msg>
         </div>
         <div class="top-side">
           <div class="month" v-for="month in 12">
@@ -29,18 +31,39 @@
           </div>
         </div>
     </div>
+    <div class="detailInfo">
+      <span> 少 </span>
+      <div class="recordList">
+        <div class="box less"></div>
+        <div class="box little"></div>
+        <div class="box some"></div>
+        <div class="box many"></div>
+        <div class="box much"></div>
+      </div>
+      <span> 多 </span>
+    </div>
+    <el-col>
+      <echars></echars>
+    </el-col>
   </div>
 </template>
 
 <script>
 import FloatMsg from "@/components/content/floatMsg";
+import Echars from "@/components/content/echars";
 export default {
   name: "recorderPanel",
-  components: {FloatMsg},
+  components: {Echars, FloatMsg},
   data(){
     return {
       panelMonth: [],
-      allDays: []
+      allDays: [],
+      isShow: false,
+      CurrentFloatMsg:'',
+      year: '',
+      month:1,
+      day:1,
+
     }
   },
   created() {
@@ -48,21 +71,52 @@ export default {
   },
   methods: {
     getYears(){
-      let Year = new Date().getFullYear(), s = 0, d;//获取当前年
+      this.year = new Date().getFullYear()
+      let s = 0, d;//获取当前年
       for (let i = 1; i < 13; i++) {
-        d = new Date(Year, i, 0);//获取某一个月的天数
+        d = new Date(this.year, i, 0);//获取某一个月的天数
         s += d.getDate();
         this.panelMonth.push({month:i,days:d.getDate()})
       }
       for(let i = 0; i < s; i++){
-        this.allDays.push({record: Math.random()*10})
+        this.allDays.push({record: Math.floor(Math.random()*10)})
       }
     },
     colors(){
 
     },
-    showInfo(e){
+    showInfo(e,index){
+      let ofx = this.$refs.rightSide.getBoundingClientRect().x
+      let ofy = this.$refs.rightSide.getBoundingClientRect().y
+      this.$refs.floatMsg.$el.style.left = e.pageX - ofx - 30 + 'px'
+      this.$refs.floatMsg.$el.style.top = e.pageY - ofy - 25 + 'px'
 
+      let day = index+1;
+      let sum=0;
+
+      for(let dates of this.panelMonth){
+        for(let i = 0; i< dates.days; i++) {
+            sum++;
+            if(day === sum){
+              //this.CurrentFloatMsg =  this.year+"-" + dates.month + "-" + ":"+ Math.floor(this.allDays[index].record)
+              this.month = dates.month
+              console.log("month" + dates.month)
+            }
+          }
+        }
+        let sumDay = 0;
+        for(let i = 0; i < this.month-1; i++){
+            sumDay += this.panelMonth[i].days
+        }
+      console.log("SS"+sumDay,day)
+      this.day = day - sumDay
+      this.CurrentFloatMsg =  this.year+"-" + this.month + "-" + this.day+ " 有效次数:"+
+          Math.floor(this.allDays[index].record)
+    }
+  },
+  computed: {
+    countRecord(){
+      return this.allDays.filter(item => item.record !== 0).length
     }
   }
 }
@@ -71,6 +125,9 @@ export default {
 <style scoped>
 .panel {
   margin-top: 20px;
+  background: #f1f1f1;
+  padding: 10px;
+  box-shadow: 0 0 6px -1px rgba(140,146,163,0.5);
 }
 .panel-head {
   font-size: 20px;
@@ -102,7 +159,6 @@ export default {
   justify-content: space-between;
 }
 .right-side {
-
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -121,6 +177,10 @@ export default {
   height: 15px;
   border: 1px solid #FFF;
   position: relative;
+  transition: background .5s;
+}
+.right-side .box:hover {
+  background: red;
 }
 .right-side .month {
   position: absolute;
@@ -162,5 +222,27 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 1000;
+  transition: all 0.3s;
+}
+.MsgText {
+  font-size: 12px;
+}
+.detailInfo {
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+.recordList {
+  display: flex;
+}
+.recordList .box {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #FFF;
+  position: relative;
+  margin: 0px 1px;
 }
 </style>

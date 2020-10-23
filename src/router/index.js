@@ -7,9 +7,16 @@ Vue.use(VueRouter)
 const Login = () => import('@/views/Login/login')
 const Test = () => import('@/views/test')
 const Home = () => import('@/views/Home/home')
+const ISAU = () => import('@/views/ISAU/isau')
+
 const routes = [
   {
     path: '/',
+    component: Home
+  },
+  {
+    path: '/home',
+    name: 'home',
     component: Home
   },
   {
@@ -21,12 +28,9 @@ const routes = [
     }
   },
   {
-    path: '/github',
-    name: 'github',
-    component: Test,
-    meta: {
-      requiredLogin: true
-    }
+    path: '/isau',
+    name: 'isau',
+    component: ISAU
   }
 ]
 

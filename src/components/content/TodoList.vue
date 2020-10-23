@@ -87,6 +87,7 @@
     max-height: 500px;
     min-height: 500px;
     background: #f1f1f1;
+    box-shadow: 0 0 6px -1px rgba(140,146,163,0.5);
   }
   .todoList-item {
     list-style: none;
@@ -98,6 +99,10 @@
     justify-content: space-between;
     padding: 0px 10px;
     box-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+  }
+  .todoList-item:hover {
+    background: #9be9a8;
   }
   .item-content {
     display: flex;
