@@ -8,7 +8,7 @@ const Login = () => import('@/views/Login/login')
 const Test = () => import('@/views/test')
 const Home = () => import('@/views/Home/home')
 const ISAU = () => import('@/views/ISAU/isau')
-
+const USER = () => import('@/views/ISAU/Child/user')
 const routes = [
   {
     path: '/',
@@ -31,6 +31,11 @@ const routes = [
     path: '/isau',
     name: 'isau',
     component: ISAU
+  },
+  {
+    path: '/user/:id',
+    name: 'user',
+    component: USER
   }
 ]
 

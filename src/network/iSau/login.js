@@ -6,6 +6,7 @@ import qs from 'qs'
 
 export const userLogin = (sid,loginName,password) => request({
     url: 'user/login/v1.0.0/snoLogin',
+
     data: qs.stringify({sid, loginName, password}),
     method: 'POST'
 })

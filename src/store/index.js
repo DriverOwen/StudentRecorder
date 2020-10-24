@@ -12,7 +12,8 @@ export default new Vuex.Store({
       name: '',
       isLogin: true
     },
-    todoList: []
+    todoList: [],
+    token: null
   },
   getters,
   mutations,

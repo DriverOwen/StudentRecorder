@@ -57,7 +57,6 @@
       getAllTodo(index){
         this.nowIndex = index
         this.listTodo = this.GET_ALL_TODO
-
       },
       getUnCompleteTodo(index){
         this.nowIndex = index
